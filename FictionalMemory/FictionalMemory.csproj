@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="CodeGenCommand.cs" />
     <Compile Include="CodeGen\Components\ComponentGen.cs" />
+    <Compile Include="CodeGen\Generation\GenClass.cs" />
+    <Compile Include="CodeGen\Generation\IGenClass.cs" />
     <Compile Include="CodeGen\Generator.cs" />
     <Compile Include="EditorToolWindow.cs" />
     <Compile Include="EditorToolWindowCommand.cs" />
@@ -58,6 +60,13 @@
     <Compile Include="Reflection\SelectedItem.cs" />
     <Compile Include="Reflection\SolutionExplorer.cs" />
     <Compile Include="Reflection\VsSolution.cs" />
+    <Compile Include="Reflektor\Helpers\ProjectExtensions.cs" />
+    <Compile Include="Reflektor\IReflektorClass.cs" />
+    <Compile Include="Reflektor\IReflektorProject.cs" />
+    <Compile Include="Reflektor\IReflektorSolution.cs" />
+    <Compile Include="Reflektor\ReflektorClass.cs" />
+    <Compile Include="Reflektor\ReflektorProject.cs" />
+    <Compile Include="Reflektor\ReflektorSolution.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>

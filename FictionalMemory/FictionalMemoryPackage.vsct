@@ -48,7 +48,7 @@
       <Button guid="guidFictionalMemoryPackageCmdSet" id="CodeGenCommandId" priority="0x0100" type="Button">
         <Parent guid="guidFictionalMemoryPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
+        <!--<CommandFlag>DefaultInvisible</CommandFlag>-->
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>FictionalMemory -> CodeGen</ButtonText>

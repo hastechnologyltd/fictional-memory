@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FictionalMemory", "FictionalMemory\FictionalMemory.csproj", "{E9C2EE95-769C-45D1-AFC3-A357D79ED71D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FictionalMemory.Driver", "FictionalMemory.Driver\FictionalMemory.Driver.csproj", "{4D0AB72D-0697-4506-9DE9-ED0C792817B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FictionalMemory.Driver", "FictionalMemory.Driver\FictionalMemory.Driver.csproj", "{4D0AB72D-0697-4506-9DE9-ED0C792817B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
