@@ -2,6 +2,7 @@
 {
     internal interface IReflektorClass
     {
+        IReflektorProject ParentProject { get; }
         string LocalPath { get; }
         string Name { get; }
         string NameSpace { get; }

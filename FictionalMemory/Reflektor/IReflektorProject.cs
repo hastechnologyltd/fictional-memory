@@ -11,6 +11,7 @@ namespace FictionalMemory.Reflektor
 
         IEnumerable<IReflektorClass> AllClasses { get; }
         IEnumerable<IReflektorClass> FilteredClasses(string filter);
-        void AddClass(string className, string nameSpace);
+        IReflektorClass AddClass(string className, string nameSpace);
+        IReflektorClass AddComponent(string componentName, string nameSpace, IDictionary<string, string> properties);
     }
 }

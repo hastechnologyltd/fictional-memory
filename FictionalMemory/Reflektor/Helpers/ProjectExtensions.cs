@@ -27,7 +27,7 @@ namespace FictionalMemory.Reflektor.Helpers
                 {
                     var className = item.Name.Replace(".cs", "");
                     var fullPath = item.FileNames[0];
-                    document.Add(new ReflektorClass(className, fullPath, reflektorProject));
+                    document.Add(new ReflektorClass(className, fullPath, reflektorProject, item));
                 }
             }
         }

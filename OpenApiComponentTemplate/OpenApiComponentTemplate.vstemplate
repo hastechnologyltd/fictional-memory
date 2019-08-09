@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>OpenApiComponentTemplate</Name>
+    <Description>OpenApiComponentTemplate</Description>
+    <Icon>OpenApiComponentTemplate.ico</Icon>
+    <TemplateID>80dcc0ac-cfe7-4163-b5a4-0077019d9c8c</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <DefaultName>OpenApiComponent.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem ReplaceParameters="true">OpenApiComponent.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

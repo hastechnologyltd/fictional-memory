@@ -21,10 +21,22 @@ namespace FictionalMemory.Reflektor
         public IEnumerable<IReflektorClass> AllClasses => this.GetClasses();
         public IEnumerable<IReflektorClass> FilteredClasses(string filter) => this.GetClasses(filter);
 
-        public void AddClass(string className, string nameSpace)
+        public IReflektorClass AddClass(string className, string nameSpace)
         {
-            DteProject.CodeModel.AddClass(className, @"C:\Users\jeff.brannon\source\repos\TestApp\Susie.cs", 0, 0, 0, vsCMAccess.vsCMAccessPublic);
+            var location = $"{LocalPath}{nameSpace.Substring(Name.Length + (Name == nameSpace ? 0 : 1)).Replace(".", "\\")}\\{className}.cs";
+            var codeNameSpace = DteProject.CodeModel.AddNamespace(nameSpace, location);
+            var codeClass = codeNameSpace.AddClass(className, 0, null, null, vsCMAccess.vsCMAccessPublic);
+            return new ReflektorClass(className, nameSpace, location, this, codeClass.ProjectItem);
+        }
 
+        public IReflektorClass AddComponent(string componentName, string nameSpace, IDictionary<string, string> properties)
+        {
+            var componentClass = AddClass(componentName, nameSpace);
+            foreach(var property in properties)
+            {
+                componentClass.DefinePublicProperty(property.Key, property.Value);
+            }
+            return componentClass;
         }
     }
 }

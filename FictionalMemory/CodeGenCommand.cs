@@ -106,69 +106,133 @@ namespace FictionalMemory
 
         public void Search()
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            //var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-            IEnumerable<Type> types = assemblies.SelectMany(x => GetLoadableTypes(x));
-
-            var service = (DTE)Package.GetGlobalService(typeof(SDTE));
-            var projectItem = service.Solution.FindProjectItem("Jeff.cs");
+            //IEnumerable<Type> types = assemblies.SelectMany(x => GetLoadableTypes(x));
 
 
-            var m = projectItem.FileCodeModel;
+            //var projectItem = service.Solution.FindProjectItem("Jeff.cs");
 
 
-            var jeff = new List<string>();
-
-            FileCodeModel fileCodeModel = projectItem.FileCodeModel;
-
-            for (int i = 1; i <= fileCodeModel.CodeElements.Count; ++i)
-            {
-                CodeElement fileCodeElement = fileCodeModel.CodeElements.Item(i);
-                if (fileCodeElement.Kind == vsCMElement.vsCMElementNamespace)
-                {
-                    CodeNamespace fileNamespace = (CodeNamespace) fileCodeElement;
-                    for (int j = 1; j <= fileNamespace.Members.Count; ++j)
-                    {
-                        CodeElement fileNamespaceElement = fileNamespace.Members.Item(j);
-
-                        jeff.Add(fileNamespaceElement.FullName);
-                        jeff.Add(fileNamespaceElement.Name);
-                        jeff.Add(fileNamespaceElement.Kind.ToString());
-
-                        if (fileNamespaceElement.Kind == vsCMElement.vsCMElementClass)
-                        {
-                            CodeType classElement = (CodeType) fileNamespaceElement;
-                            for (int k = 1; k <= classElement.Members.Count; ++k)
-                            {
-                                CodeElement classMember = classElement.Members.Item(k);
-                                jeff.Add(classMember.Kind.ToString());
-                                if (classMember.Kind == vsCMElement.vsCMElementProperty)
-                                {
-                                    var codeProperty = (CodeProperty2) classMember;
-                                    jeff.Add(codeProperty.Name);
-                                    jeff.Add(codeProperty.Type.AsString);
-
-                                }
-                            }
-                        }
+            //var m = projectItem.FileCodeModel;
 
 
-                        var cls = (CodeClass)fileNamespaceElement;
+            //var jeff = new List<string>();
 
-                        var genClass = new GenClass(cls);
-                        genClass.AddPublicProperty("Address", "Address");
-                        genClass.AddPublicProperty("Client", "string");
-                    }
-                }
-            }
+            //FileCodeModel fileCodeModel = projectItem.FileCodeModel;
+
+            //for (int i = 1; i <= fileCodeModel.CodeElements.Count; ++i)
+            //{
+            //    CodeElement fileCodeElement = fileCodeModel.CodeElements.Item(i);
+            //    if (fileCodeElement.Kind == vsCMElement.vsCMElementNamespace)
+            //    {
+            //        CodeNamespace fileNamespace = (CodeNamespace) fileCodeElement;
+            //        for (int j = 1; j <= fileNamespace.Members.Count; ++j)
+            //        {
+            //            CodeElement fileNamespaceElement = fileNamespace.Members.Item(j);
+
+            //            jeff.Add(fileNamespaceElement.FullName);
+            //            jeff.Add(fileNamespaceElement.Name);
+            //            jeff.Add(fileNamespaceElement.Kind.ToString());
+
+            //            if (fileNamespaceElement.Kind == vsCMElement.vsCMElementClass)
+            //            {
+            //                CodeType classElement = (CodeType) fileNamespaceElement;
+            //                for (int k = 1; k <= classElement.Members.Count; ++k)
+            //                {
+            //                    CodeElement classMember = classElement.Members.Item(k);
+            //                    jeff.Add(classMember.Kind.ToString());
+            //                    if (classMember.Kind == vsCMElement.vsCMElementProperty)
+            //                    {
+            //                        var codeProperty = (CodeProperty2) classMember;
+            //                        jeff.Add(codeProperty.Name);
+            //                        jeff.Add(codeProperty.Type.AsString);
+
+            //                    }
+            //                }
+            //            }
+
+
+            //            var cls = (CodeClass)fileNamespaceElement;
+
+            //            var genClass = new GenClass(cls);
+            //            genClass.AddPublicProperty("Address", "Address");
+            //            genClass.AddPublicProperty("Client", "string");
+            //        }
+            //    }
+            //}
+
+            var service = (DTE2)Package.GetGlobalService(typeof(SDTE));
 
             var solution = new ReflektorSolution(service.Solution);
 
-            var classes = solution.Projects.SelectMany(x => x.GetClasses());
+            var dte2Solution = (EnvDTE80.Solution2)service.Application.Solution;
 
-            var filteredClasses = solution.Projects.SelectMany(x => x.FilteredClasses("Jeff"));
+            var projectItemTemplate = dte2Solution.GetProjectItemTemplate("Class", "CSharp");
 
-            solution.Projects.First().AddClass("Susie", "");
+            
+
+            var folder = service.Solution.Projects.Item(1).ProjectItems.AddFolder("Jeff");
+            var componentItemTemplate = dte2Solution.GetProjectItemTemplate("OpenApiComponentTemplate", "CSharp");
+            var componentItem = folder.ProjectItems.AddFromTemplate(componentItemTemplate, "SusieComponent.cs");
+            var controllerItemTemplate = dte2Solution.GetProjectItemTemplate("OpenApiControllerTemplate", "CSharp");
+            var controllerItem = folder.ProjectItems.AddFromTemplate(controllerItemTemplate, "SusieController.cs");
+
+            FileCodeModel fileCodeModel = componentItem.FileCodeModel;
+
+            FileCodeModel nameSpace = null;
+            for (var i = 1; i < fileCodeModel.CodeElements.Count + 1; i++)
+            {
+                CodeElement fileCodeElement = fileCodeModel.CodeElements.Item(i);
+                if(fileCodeElement.Kind == vsCMElement.vsCMElementNamespace)
+                {
+                    nameSpace = fileCodeElement.ProjectItem.FileCodeModel;
+                    break;
+                }
+            }
+
+            FileCodeModel classInstance = null;
+            for (var i = 1; i < nameSpace.CodeElements.Count + 1; i++)
+            {
+                CodeElement fileCodeElement = fileCodeModel.CodeElements.Item(i);
+                if (fileCodeElement.Kind == vsCMElement.vsCMElementClass)
+                {
+                    classInstance = fileCodeElement.ProjectItem.FileCodeModel;
+                    break;
+                }
+            }
+
+
+            //CodeNamespace fileNamespace = (CodeNamespace)fileCodeElement;
+            //CodeElement fileNamespaceElement = fileNamespace.Members.Item(1);
+            CodeClass codeClass = (CodeClass)classInstance;
+
+            codeClass.AddVariable("PropertyOne", "string", -1, vsCMAccess.vsCMAccessPublic);
+
+
+
+
+
+
+
+
+
+
+
+            //var classes = solution.Projects.SelectMany(x => x.GetClasses());
+
+            //var filteredClasses = solution.Projects.SelectMany(x => x.FilteredClasses("Status"));
+
+            //var statusClass = filteredClasses.First();
+            //var a = statusClass.Name;
+            //var b = statusClass.NameSpace;
+            //var c = statusClass.LocalPath;
+
+
+
+
+            //var susieClass = statusClass.ParentProject.AddClass("Susie", b);
+            //susieClass.DefinePublicProperty("Address", "string");
         }
     }
 }
