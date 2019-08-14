@@ -9,9 +9,12 @@ namespace FictionalMemory.Reflektor
         string LocalPath { get; }
         string Name { get; }
 
-        IEnumerable<IReflektorClass> AllClasses { get; }
-        IEnumerable<IReflektorClass> FilteredClasses(string filter);
-        IReflektorClass AddClass(string className, string nameSpace);
-        IReflektorClass AddComponent(string componentName, string nameSpace, IDictionary<string, string> properties);
+        IEnumerable<IReflektorCodeFile> AllCodeFiles { get; }
+        IEnumerable<IReflektorCodeFile> FilteredCodeFiles(string filter);
+        IReflektorCodeFile CreateCodeFile(string fullFileName);
+
+
+        //IReflektorClass AddClass(string className, string nameSpace);
+        //IReflektorClass AddComponent(string componentName, string nameSpace, IDictionary<string, string> properties);
     }
 }

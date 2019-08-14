@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using EnvDTE;
 using EnvDTE80;
 using FictionalMemory.CodeGen;
-using FictionalMemory.CodeGen.Generation;
 using FictionalMemory.Reflection;
-using FictionalMemory.Reflektor;
-using FictionalMemory.Reflektor.Helpers;
+using FictionalMemory.RocketReflektor;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Design;
 using Microsoft.VisualStudio.Shell.Interop;
+using RocketReflektor.CodeFiles;
 using Task = System.Threading.Tasks.Task;
 
 namespace FictionalMemory
@@ -106,108 +102,70 @@ namespace FictionalMemory
 
         public void Search()
         {
-            //var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            //var service = (DTE2)Package.GetGlobalService(typeof(SDTE));
 
-            //IEnumerable<Type> types = assemblies.SelectMany(x => GetLoadableTypes(x));
+            //var solution = new ReflektorSolution(service.Solution);
 
+            //var dte2Solution = (EnvDTE80.Solution2)service.Application.Solution;
 
-            //var projectItem = service.Solution.FindProjectItem("Jeff.cs");
-
-
-            //var m = projectItem.FileCodeModel;
+            //var projectItemTemplate = dte2Solution.GetProjectItemTemplate("Class", "CSharp");
 
 
-            //var jeff = new List<string>();
 
-            //FileCodeModel fileCodeModel = projectItem.FileCodeModel;
+            //var folder = service.Solution.Projects.Item(1).ProjectItems.AddFolder("Jeff");
+            //var componentItemTemplate = dte2Solution.GetProjectItemTemplate("OpenApiComponentTemplate", "CSharp");
+            //var componentItem = folder.ProjectItems.AddFromTemplate(componentItemTemplate, "SusieComponent.cs");
+            //var controllerItemTemplate = dte2Solution.GetProjectItemTemplate("OpenApiControllerTemplate", "CSharp");
+            //var controllerItem = folder.ProjectItems.AddFromTemplate(controllerItemTemplate, "SusieController.cs");
 
-            //for (int i = 1; i <= fileCodeModel.CodeElements.Count; ++i)
+            //FileCodeModel fileCodeModel = componentItem.FileCodeModel;
+
+            //CodeElements nameSpace = null;
+            //for (var i = 1; i < fileCodeModel.CodeElements.Count + 1; i++)
             //{
-            //    CodeElement fileCodeElement = fileCodeModel.CodeElements.Item(i);
-            //    if (fileCodeElement.Kind == vsCMElement.vsCMElementNamespace)
+            //    CodeElement namespaceCodeElement = fileCodeModel.CodeElements.Item(i);
+            //    if (namespaceCodeElement.Kind == vsCMElement.vsCMElementNamespace)
             //    {
-            //        CodeNamespace fileNamespace = (CodeNamespace) fileCodeElement;
-            //        for (int j = 1; j <= fileNamespace.Members.Count; ++j)
-            //        {
-            //            CodeElement fileNamespaceElement = fileNamespace.Members.Item(j);
-
-            //            jeff.Add(fileNamespaceElement.FullName);
-            //            jeff.Add(fileNamespaceElement.Name);
-            //            jeff.Add(fileNamespaceElement.Kind.ToString());
-
-            //            if (fileNamespaceElement.Kind == vsCMElement.vsCMElementClass)
-            //            {
-            //                CodeType classElement = (CodeType) fileNamespaceElement;
-            //                for (int k = 1; k <= classElement.Members.Count; ++k)
-            //                {
-            //                    CodeElement classMember = classElement.Members.Item(k);
-            //                    jeff.Add(classMember.Kind.ToString());
-            //                    if (classMember.Kind == vsCMElement.vsCMElementProperty)
-            //                    {
-            //                        var codeProperty = (CodeProperty2) classMember;
-            //                        jeff.Add(codeProperty.Name);
-            //                        jeff.Add(codeProperty.Type.AsString);
-
-            //                    }
-            //                }
-            //            }
-
-
-            //            var cls = (CodeClass)fileNamespaceElement;
-
-            //            var genClass = new GenClass(cls);
-            //            genClass.AddPublicProperty("Address", "Address");
-            //            genClass.AddPublicProperty("Client", "string");
-            //        }
+            //        nameSpace = namespaceCodeElement.Children;
+            //        break;
             //    }
             //}
 
+            //CodeClass codeClass = null;
+            //for (var i = 1; i < nameSpace.Count + 1; i++)
+            //{
+            //    CodeElement classCodeElement = nameSpace.Item(i);
+            //    if (classCodeElement.Kind == vsCMElement.vsCMElementClass)
+            //    {
+            //        codeClass = (CodeClass)classCodeElement;
+            //        break;
+            //    }
+            //}
+
+
+            //codeClass.AddVariable("PropertyOne", "string", -1, vsCMAccess.vsCMAccessPublic);
+
+
+
+
+
+
+
             var service = (DTE2)Package.GetGlobalService(typeof(SDTE));
 
-            var solution = new ReflektorSolution(service.Solution);
+            var solution = new DteSolution(service.Solution);
+            var discover = new Discover();
 
-            var dte2Solution = (EnvDTE80.Solution2)service.Application.Solution;
-
-            var projectItemTemplate = dte2Solution.GetProjectItemTemplate("Class", "CSharp");
-
-            
-
-            var folder = service.Solution.Projects.Item(1).ProjectItems.AddFolder("Jeff");
-            var componentItemTemplate = dte2Solution.GetProjectItemTemplate("OpenApiComponentTemplate", "CSharp");
-            var componentItem = folder.ProjectItems.AddFromTemplate(componentItemTemplate, "SusieComponent.cs");
-            var controllerItemTemplate = dte2Solution.GetProjectItemTemplate("OpenApiControllerTemplate", "CSharp");
-            var controllerItem = folder.ProjectItems.AddFromTemplate(controllerItemTemplate, "SusieController.cs");
-
-            FileCodeModel fileCodeModel = componentItem.FileCodeModel;
-
-            FileCodeModel nameSpace = null;
-            for (var i = 1; i < fileCodeModel.CodeElements.Count + 1; i++)
+            foreach (var project in solution.Projects)
             {
-                CodeElement fileCodeElement = fileCodeModel.CodeElements.Item(i);
-                if(fileCodeElement.Kind == vsCMElement.vsCMElementNamespace)
-                {
-                    nameSpace = fileCodeElement.ProjectItem.FileCodeModel;
-                    break;
-                }
+                var d = discover.GetFiles(project.ProjectItems);
             }
 
-            FileCodeModel classInstance = null;
-            for (var i = 1; i < nameSpace.CodeElements.Count + 1; i++)
-            {
-                CodeElement fileCodeElement = fileCodeModel.CodeElements.Item(i);
-                if (fileCodeElement.Kind == vsCMElement.vsCMElementClass)
-                {
-                    classInstance = fileCodeElement.ProjectItem.FileCodeModel;
-                    break;
-                }
-            }
+            //var project = service.Solution.Projects.Item(1);
 
+            //var discover = new Discover();
 
-            //CodeNamespace fileNamespace = (CodeNamespace)fileCodeElement;
-            //CodeElement fileNamespaceElement = fileNamespace.Members.Item(1);
-            CodeClass codeClass = (CodeClass)classInstance;
-
-            codeClass.AddVariable("PropertyOne", "string", -1, vsCMAccess.vsCMAccessPublic);
+            //var d = discover.GetFiles(new DteProjectItems(project.ProjectItems));
 
 
 

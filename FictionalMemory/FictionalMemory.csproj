@@ -60,13 +60,20 @@
     <Compile Include="Reflection\SelectedItem.cs" />
     <Compile Include="Reflection\SolutionExplorer.cs" />
     <Compile Include="Reflection\VsSolution.cs" />
-    <Compile Include="Reflektor\Helpers\ProjectExtensions.cs" />
     <Compile Include="Reflektor\IReflektorClass.cs" />
+    <Compile Include="Reflektor\IReflektorCodeFile.cs" />
+    <Compile Include="Reflektor\IReflektorProjectCodeFiles.cs" />
     <Compile Include="Reflektor\IReflektorProject.cs" />
     <Compile Include="Reflektor\IReflektorSolution.cs" />
     <Compile Include="Reflektor\ReflektorClass.cs" />
+    <Compile Include="Reflektor\ReflektorCodeFile.cs" />
+    <Compile Include="Reflektor\ReflektorProjectCodeFiles.cs" />
     <Compile Include="Reflektor\ReflektorProject.cs" />
     <Compile Include="Reflektor\ReflektorSolution.cs" />
+    <Compile Include="RocketReflektor\DteProject.cs" />
+    <Compile Include="RocketReflektor\DteProjectItem.cs" />
+    <Compile Include="RocketReflektor\DteProjectItems.cs" />
+    <Compile Include="RocketReflektor\DteSolution.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +130,10 @@
       <VSIXSubPath>ItemTemplates</VSIXSubPath>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\RocketReflektor\RocketReflektor.csproj">
+      <Project>{A7BF7C3F-025C-4A0C-979B-03316CDBEA63}</Project>
+      <Name>RocketReflektor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EnvDTE;
 
 namespace FictionalMemory.Reflektor
@@ -6,6 +7,7 @@ namespace FictionalMemory.Reflektor
     internal class ReflektorSolution : IReflektorSolution
     {
         private IEnumerable<IReflektorProject> _projects;
+        private IEnumerable<Project> _dteProjects => (IEnumerable<Project>)DteSolution.Projects.GetEnumerator();
 
         public ReflektorSolution(Solution dteSolution)
         {
@@ -13,16 +15,6 @@ namespace FictionalMemory.Reflektor
         }
 
         public Solution DteSolution { get; }
-        public IEnumerable<IReflektorProject> Projects => _projects ?? (_projects = GetProjects());
-
-        private IEnumerable<IReflektorProject> GetProjects()
-        {
-            var list = new List<IReflektorProject>();
-            foreach (Project project in DteSolution.Projects)
-            {
-                list.Add(new ReflektorProject(project, this));
-            }
-            return list;
-        }
+        public IEnumerable<IReflektorProject> Projects => _projects ?? (_projects = _dteProjects.Select(x => new ReflektorProject(x, this)));
     }
 }
