@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RocketReflektor.Injected
+﻿namespace RocketReflektor.Dte
 {
     public interface IDteProjectItem
     {

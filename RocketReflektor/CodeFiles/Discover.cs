@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using RocketReflektor.Injected;
+using RocketReflektor.Dte;
 
 namespace RocketReflektor.CodeFiles
 {

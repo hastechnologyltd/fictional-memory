@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using EnvDTE;
-using RocketReflektor.Injected;
+using RocketReflektor.Dte;
 
 namespace FictionalMemory.RocketReflektor
 {

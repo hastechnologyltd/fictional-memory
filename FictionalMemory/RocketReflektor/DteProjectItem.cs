@@ -1,6 +1,6 @@
 ﻿using System;
 using EnvDTE;
-using RocketReflektor.Injected;
+using RocketReflektor.Dte;
 
 namespace FictionalMemory.RocketReflektor
 {

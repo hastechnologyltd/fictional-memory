@@ -47,11 +47,21 @@
     <Compile Include="CodeFiles\Generate.cs" />
     <Compile Include="CodeFiles\IDiscover.cs" />
     <Compile Include="CodeFiles\IGenerate.cs" />
-    <Compile Include="Injected\IDteProject.cs" />
-    <Compile Include="Injected\IDteProjectItem.cs" />
-    <Compile Include="Injected\IDteProjectItems.cs" />
-    <Compile Include="Injected\IDteSolution.cs" />
+    <Compile Include="IRocketReflektor.cs" />
+    <Compile Include="ILocation.cs" />
+    <Compile Include="Dte\IDteProject.cs" />
+    <Compile Include="Dte\IDteProjectItem.cs" />
+    <Compile Include="Dte\IDteProjectItems.cs" />
+    <Compile Include="Dte\IDteSolution.cs" />
+    <Compile Include="IProject.cs" />
+    <Compile Include="IProjects.cs" />
+    <Compile Include="ISolution.cs" />
+    <Compile Include="Iteration\IIterator.cs" />
+    <Compile Include="Iteration\Iterator.cs" />
+    <Compile Include="Projects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solution.cs" />
+    <Compile Include="RocketReflektorExtension.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

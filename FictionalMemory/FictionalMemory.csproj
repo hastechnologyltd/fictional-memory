@@ -74,6 +74,7 @@
     <Compile Include="RocketReflektor\DteProjectItem.cs" />
     <Compile Include="RocketReflektor\DteProjectItems.cs" />
     <Compile Include="RocketReflektor\DteSolution.cs" />
+    <Compile Include="RocketReflektor\RocketReflektor.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>

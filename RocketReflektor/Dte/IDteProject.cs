@@ -1,4 +1,4 @@
-﻿namespace RocketReflektor.Injected
+﻿namespace RocketReflektor.Dte
 {
     public interface IDteProject
     {

@@ -9,6 +9,7 @@ using FictionalMemory.Reflection;
 using FictionalMemory.RocketReflektor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using RocketReflektor;
 using RocketReflektor.CodeFiles;
 using Task = System.Threading.Tasks.Task;
 
@@ -149,17 +150,10 @@ namespace FictionalMemory
 
 
 
+            var rocketReflektor = new RocketReflektor.RocketReflektor();
 
+            var solution = rocketReflektor.CurrentSolution();
 
-            var service = (DTE2)Package.GetGlobalService(typeof(SDTE));
-
-            var solution = new DteSolution(service.Solution);
-            var discover = new Discover();
-
-            foreach (var project in solution.Projects)
-            {
-                var d = discover.GetFiles(project.ProjectItems);
-            }
 
             //var project = service.Solution.Projects.Item(1);
 
